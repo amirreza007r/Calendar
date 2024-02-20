@@ -8,7 +8,7 @@
 
 body {
     min-height: 100vh;
-    background: linear-gradient(#2b1055, #7597de);
+    background: linear-gradient(#000000, #485fed);
     overflow-x: hidden;
     display: flex;
     align-items: center;
@@ -20,9 +20,12 @@ body {
     position: relative;
     display: flex;
     background-color: beige;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .content {
+    padding: 1rem 0.5rem;
     width: 100%;
     position: relative;
     display: flex;
@@ -30,6 +33,9 @@ body {
     justify-content: center;
     flex-direction: column;
     direction: rtl;
+    background: linear-gradient(to left, #485fed, rgba(255, 44, 118, 0.25)),
+        #485fed;
+    color: white;
 }
 
 .live-calendar {
@@ -54,12 +60,12 @@ body {
     font-size: 30px;
     font-weight: 600;
     padding: 15px;
-    background-image: linear-gradient(270deg, #c8e1d9, #7978781a);
+    /* background-image: linear-gradient(270deg, #c8e1d9, #7978781a); */
+    background-color: #0000002b;
 }
 .sidebar {
     width: 300px;
-    height: 100%;
-    background: gray;
+    background: #3a4fcd;
     z-index: 2;
 }
 
@@ -69,7 +75,8 @@ body {
     margin-top: 0.5rem;
     width: 100%;
     height: 100px;
-    background-color: rgba(0, 0, 0, 0.38);
+    /* background-color: rgba(0, 0, 0, 0.38); */
+    background-color: rgb(0 0 0 / 14%);
     align-items: center;
 }
 
@@ -83,4 +90,79 @@ body {
     font-size: 1.5rem;
     font-weight: 600;
     padding: 15px;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    padding: 15px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+}
+
+.side-title {
+    color: white;
+    padding: 2rem;
+}
+
+.side-list {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+li div a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+.active {
+    border: 3px solid white;
+    padding: 0.3rem 0.5rem;
+    border-radius: 15px;
+}
+
+#hamburger-btn {
+    display: none;
+    z-index: 3;
+}
+
+.show {
+    display: block !important;
+}
+
+@media screen and (max-width: 720px) {
+    .sidebar {
+        display: none;
+    }
+    #hamburger-btn {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+        display: block;
+        cursor: pointer;
+    }
+    .sidebar {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+
+    .live-calendar {
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 400px) {
+    .live-text {
+        font-size: 1rem;
+    }
 }

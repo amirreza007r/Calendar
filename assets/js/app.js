@@ -1,92 +1,72 @@
-const Chours = document.getElementById("hours");
-const Cminutes = document.getElementById("minutes");
-const Cseconds = document.getElementById("seconds");
-const lunarDateElement = document.getElementById("lunar-date");
-const persianDateElement = document.getElementById("persian-date");
-const gregorianDateElement = document.getElementById("gregorian-date");
-const gregorianDateNameElement = document.getElementById("gregorian-date-name");
-const persianDateNameElement = document.getElementById("persian-date-name");
-const lunarDateNameElement = document.getElementById("lunar-date-name");
+const getElement = (id) => document.getElementById(id);
 
-function getPersianDate() {
-    let currentDate = new Date().toLocaleDateString("fa-IR", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        era: undefined,
-    });
-    return currentDate;
-}
-function getPersianDateName() {
-    let now = new Date().toLocaleDateString("fa-IR", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-    });
-    return now;
-}
+const Chours = getElement("hours");
+const Cminutes = getElement("minutes");
+const Cseconds = getElement("seconds");
+const lunarDateElement = getElement("lunar-date");
+const persianDateElement = getElement("persian-date");
+const gregorianDateElement = getElement("gregorian-date");
+const gregorianDateNameElement = getElement("gregorian-date-name");
+const persianDateNameElement = getElement("persian-date-name");
+const lunarDateNameElement = getElement("lunar-date-name");
+const hamburgerBtn = getElement("hamburger-btn");
 
-function getGregorianDate() {
-    let currentDate = new Date().toLocaleDateString("en-US", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        era: undefined,
-    });
-    return currentDate;
-}
-function getGregorianDateName() {
-    let now = new Date().toLocaleDateString("en-us", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-    });
-    return now;
-}
-function getLunarDate() {
-    let currentDate = new Date().toLocaleDateString("ar-TN-u-ca-islamic", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        era: undefined,
-    });
+const formatDate = (locale, format) =>
+    new Date().toLocaleDateString(locale, format);
 
-    return currentDate;
-}
-function getLunarDateName() {
-    let now = new Date().toLocaleDateString("ar-TN-u-ca-islamic", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-    });
-    return now;
-}
-
-function updateClock() {
-    // console.clear();
-    let currentTime = new Date().toLocaleTimeString("fa-IR", {
+const updateClock = () => {
+    const currentTime = new Date().toLocaleTimeString("fa-IR", {
         timeZone: "Asia/Tehran",
     });
 
-    let [hours, minutes, seconds] = currentTime.split(/:| /);
-
-    let clockElement = document.getElementById("digital-clock");
+    const [hours, minutes, seconds] = currentTime.split(/:| /);
 
     Chours.textContent = hours;
     Cminutes.textContent = minutes;
     Cseconds.textContent = seconds;
 
-    persianDateElement.textContent = getPersianDate();
+    persianDateElement.textContent = formatDate("fa-IR", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        era: undefined,
+    });
 
-    lunarDateElement.textContent = getLunarDate();
+    lunarDateElement.textContent = formatDate("ar-TN-u-ca-islamic", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        era: undefined,
+    });
 
-    gregorianDateElement.textContent = getGregorianDate();
+    gregorianDateElement.textContent = formatDate("en-US", {
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+        era: undefined,
+    });
 
-    gregorianDateNameElement.textContent = getGregorianDateName();
+    gregorianDateNameElement.textContent = formatDate("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+    });
 
-    persianDateNameElement.textContent = getPersianDateName();
+    persianDateNameElement.textContent = formatDate("fa-IR", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+    });
 
-    lunarDateNameElement.textContent = getLunarDateName();
+    lunarDateNameElement.textContent = formatDate("ar-TN-u-ca-islamic", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+    });
+};
+
+function toggleHamburger() {
+    document.getElementById("sidebar").classList.toggle("show");
 }
 
 setInterval(updateClock, 1000);
