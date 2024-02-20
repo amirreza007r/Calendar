@@ -80,6 +80,20 @@ body {
     align-items: center;
 }
 
+.a-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+.a-box div {
+    border: 2px solid white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 .date {
     font-size: 2rem;
     font-weight: 600;

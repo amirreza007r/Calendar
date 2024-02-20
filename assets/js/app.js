@@ -10,9 +10,28 @@ const gregorianDateNameElement = getElement("gregorian-date-name");
 const persianDateNameElement = getElement("persian-date-name");
 const lunarDateNameElement = getElement("lunar-date-name");
 const hamburgerBtn = getElement("hamburger-btn");
+const backArrow = getElement("back-arrow");
+const nextArrow = getElement("next-arrow");
+let nowDay = new Date();
+cOption = {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    era: undefined,
+};
 
-const formatDate = (locale, format) =>
-    new Date().toLocaleDateString(locale, format);
+const convertDate = (type, option, currentDay) => {
+    console.log(type, "type", option, "option", currentDay, "currentDay");
+    const result = currentDay.toLocaleDateString(type, option);
+    return result;
+};
+
+const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+};
 
 const updateClock = () => {
     const currentTime = new Date().toLocaleTimeString("fa-IR", {
@@ -24,46 +43,41 @@ const updateClock = () => {
     Chours.textContent = hours;
     Cminutes.textContent = minutes;
     Cseconds.textContent = seconds;
-
-    persianDateElement.textContent = formatDate("fa-IR", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        era: undefined,
-    });
-
-    lunarDateElement.textContent = formatDate("ar-TN-u-ca-islamic", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        era: undefined,
-    });
-
-    gregorianDateElement.textContent = formatDate("en-US", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        era: undefined,
-    });
-
-    gregorianDateNameElement.textContent = formatDate("en-US", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-    });
-
-    persianDateNameElement.textContent = formatDate("fa-IR", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-    });
-
-    lunarDateNameElement.textContent = formatDate("ar-TN-u-ca-islamic", {
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-    });
 };
+
+const formatDate = (type, cOption, date) => {
+    return date.toLocaleDateString(type, cOption);
+};
+
+const updateDate = () => {
+    persianDateElement.innerText = formatDate("fa-IR", cOption, nowDay);
+    lunarDateElement.innerText = formatDate(
+        "ar-TN-u-ca-islamic",
+        cOption,
+        nowDay
+    );
+    gregorianDateElement.innerText = formatDate("en-us", cOption, nowDay);
+    persianDateNameElement.innerText = convertDate("fa-IR", options, nowDay);
+    gregorianDateNameElement.innerText = convertDate("en-us", options, nowDay);
+    lunarDateNameElement.innerText = convertDate(
+        "ar-TN-u-ca-islamic",
+        options,
+        nowDay
+    );
+};
+
+const handleBackArrowClick = () => {
+    nowDay.setDate(nowDay.getDate() - 1);
+    updateDate();
+};
+
+const handleNextArrowClick = () => {
+    nowDay.setDate(nowDay.getDate() + 1);
+    updateDate();
+};
+
+backArrow.addEventListener("click", handleBackArrowClick);
+nextArrow.addEventListener("click", handleNextArrowClick);
 
 function toggleHamburger() {
     document.getElementById("sidebar").classList.toggle("show");
@@ -71,4 +85,5 @@ function toggleHamburger() {
 
 setInterval(updateClock, 1000);
 
+updateDate();
 updateClock();
