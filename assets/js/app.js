@@ -28,7 +28,6 @@ cOption = {
  * @return {string} The formatted date
  */
 const convertDate = (type, option, currentDay) => {
-    console.log(type, "type", option, "option", currentDay, "currentDay");
     const result = currentDay
         .toLocaleDateString(type, option)
         .replace("هـ", "");
@@ -42,6 +41,10 @@ const options = {
     day: "numeric",
 };
 
+/**
+ * Updates the clock display with the current time in the Asia/Tehran timezone.
+ *
+ */
 const updateClock = () => {
     const currentTime = new Date().toLocaleTimeString("fa-IR", {
         timeZone: "Asia/Tehran",
