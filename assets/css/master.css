@@ -76,7 +76,8 @@ body {
     align-items: center;
     justify-content: center;
 }
-*/ .sidebar {
+
+.sidebar {
     width: 300px;
     background: rgb(65 66 65);
     z-index: 2;
