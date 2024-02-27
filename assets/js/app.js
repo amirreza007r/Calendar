@@ -17,12 +17,21 @@ cOption = {
     day: "numeric",
     month: "numeric",
     year: "numeric",
-    era: undefined,
 };
 
+/**
+ * Converts the current day to a specific date format.
+ * @author amirreza
+ * @param {string} type - The type of date format
+ * @param {Object} option - The options for the date format
+ * @param {Date} currentDay - The current day to be converted
+ * @return {string} The formatted date
+ */
 const convertDate = (type, option, currentDay) => {
     console.log(type, "type", option, "option", currentDay, "currentDay");
-    const result = currentDay.toLocaleDateString(type, option);
+    const result = currentDay
+        .toLocaleDateString(type, option)
+        .replace("هـ", "");
     return result;
 };
 
@@ -45,10 +54,26 @@ const updateClock = () => {
     Cseconds.textContent = seconds;
 };
 
+/**
+ * Formats a date using the specified type and options.
+ *
+ * @param {string} type - the type of formatting to apply
+ * @param {object} cOption - the formatting options
+ * @param {Date} date - the date to format
+ * @return {string} the formatted date
+ */
 const formatDate = (type, cOption, date) => {
-    return date.toLocaleDateString(type, cOption);
+    let formattedDate = date.toLocaleDateString(type, cOption);
+
+    formattedDate = formattedDate.replace(/هـ/, "");
+
+    return formattedDate;
 };
 
+/**
+ * Updates the date elements on the page with the formatted dates in Persian, lunar, and Gregorian calendars,
+ * as well as their corresponding names.
+ */
 const updateDate = () => {
     persianDateElement.innerText = formatDate("fa-IR", cOption, nowDay);
     lunarDateElement.innerText = formatDate(
